@@ -1,101 +1,133 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" data-theme="ferrari">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sir Lewis Hamilton | #44</title>
+    <title>Sir Lewis Hamilton | Portal #44</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <!-- Barra de Navegação Superior Moderna -->
-    <nav class="navbar">
-        <a href="index.html" class="logo">LH<span>44</span></a>
-        <div class="nav-links">
-            <a href="index.html" class="active">Início</a>
-            <a href="biografia.html">Biografia</a>
-            <a href="carreira.html">Equipes & Carros</a>
-            <a href="recordes.html">Recordes</a>
-        </div>
-    </nav>
+    <!-- Topo com Seletor de Cores das Equipes -->
+    <header class="topbar">
+        <a href="index.html" class="logo">HAMILTON <span>#44</span></a>
 
-    <!-- Seção Principal de Impacto -->
-    <section class="hero">
-        <div class="hero-text">
-            <span class="badge">STILL I RISE • #44</span>
-            <h1>SIR LEWIS HAMILTON</h1>
-            <p>Heptacampeão mundial de Fórmula 1, cidadão honorário do Brasil e o piloto mais vitorioso da história do automobilismo. Uma lenda que redefiniu os limites da velocidade na McLaren, na Mercedes-AMG e na Scuderia Ferrari.</p>
+        <div class="theme-switcher">
+            <span class="theme-label">Escolha a cor da equipe:</span>
             
-            <div class="quick-stats">
-                <div class="stat-item">
-                    <h3>7</h3>
-                    <span>Títulos</span>
-                </div>
-                <div class="stat-item">
-                    <h3>105+</h3>
-                    <span>Vitórias</span>
-                </div>
-                <div class="stat-item">
-                    <h3>104+</h3>
-                    <span>Poles</span>
-                </div>
-                <div class="stat-item">
-                    <h3>202+</h3>
-                    <span>Pódios</span>
-                </div>
+            <button class="team-btn" onclick="mudarTema('mclaren', this)">
+                <span class="dot" style="background: #ff8000;"></span> McLaren
+            </button>
+            
+            <button class="team-btn" onclick="mudarTema('mercedes', this)">
+                <span class="dot" style="background: #00d2be;"></span> Mercedes
+            </button>
+            
+            <button class="team-btn active" onclick="mudarTema('ferrari', this)">
+                <span class="dot" style="background: #e10600;"></span> Ferrari
+            </button>
+        </div>
+    </header>
+
+    <!-- Apresentação: Foto + De onde ele é + Para que serve a página -->
+    <section class="hero-home">
+        <div class="photo-frame">
+            <!-- Você pode trocar por uma foto salva na sua pasta, ex: src="assets/hamilton.jpg" -->
+            <img src="https://upload.wikimedia.org/wikipedia/commons/1/18/Lewis_Hamilton_2016_Malaysia_2.jpg" alt="Sir Lewis Hamilton">
+            <div class="number-badge">44</div>
+        </div>
+
+        <div class="intro-content">
+            <span class="origin-tag">📍 STEVENAGE, REINO UNIDO • CIDADÃO HONORÁRIO DO BRASIL</span>
+            <h1>SIR LEWIS <span>HAMILTON</span></h1>
+
+            <div class="intro-box">
+                <p><strong>Quem é:</strong> Nascido em Stevenage, na Inglaterra, em 7 de janeiro de 1985, Sir Lewis Carl Davidson Hamilton é heptacampeão mundial de Fórmula 1 e o piloto mais vitorioso da história do automobilismo, além de possuir o título de Cavaleiro da Coroa Britânica e de Cidadão Honorário Brasileiro.</p>
             </div>
 
-            <!-- Player do Spotify Integrado com Design Limpo -->
-            <iframe style="border-radius:16px; width:100%; height:152px; border: 1px solid rgba(255,255,255,0.1);" src="https://open.spotify.com/embed/playlist/37i9dQZF1DX8Ueb9C7ab61?utm_source=generator&theme=0" frameborder="0" loading="lazy"></iframe>
-        </div>
-
-        <div class="hero-visual">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/1/18/Lewis_Hamilton_2016_Malaysia_2.jpg" alt="Sir Lewis Hamilton">
-            <div class="number-bg">44</div>
+            <div class="intro-box">
+                <p><strong>Para que serve esta página:</strong> Este portal interativo foi criado para reunir em um só lugar toda a trajetória do #44 dentro e fora das pistas. Aqui você pode personalizar o visual com as cores das três equipes históricas em que ele correu (McLaren, Mercedes e Ferrari) e explorar sua vida pessoal, carreira, estatísticas e bastidores.</p>
+            </div>
         </div>
     </section>
 
-    <!-- Cartões de Navegação Estilo Bento Grid -->
-    <section class="section-container">
-        <div class="bento-grid">
-            <a href="biografia.html" class="glass-card">
+    <!-- Opções para acessar tudo sobre o Lewis (As 4 Páginas) -->
+    <section class="portal-section">
+        <div class="portal-title">Explore tudo sobre o piloto</div>
+
+        <div class="nav-grid">
+            <!-- Página 1: Biografia Pessoal -->
+            <a href="biografia.html" class="nav-card">
                 <div>
-                    <div class="card-tag">01 • Origem & Vida</div>
-                    <h3>Biografia Pessoal</h3>
-                    <p>De Stevenage para o mundo: sua história familiar, o fiel companheiro Roscoe, ativismo e o título de Sir.</p>
+                    <div class="card-num">PÁGINA 01</div>
+                    <h2>Biografia Pessoal</h2>
+                    <p>Sua infância no Reino Unido, família, luta contra o racismo, moda, música e seu famoso bulldog Roscoe.</p>
                 </div>
-                <span class="card-arrow">Explorar Biografia →</span>
+                <span class="card-btn">Acessar Biografia →</span>
             </a>
 
-            <a href="carreira.html" class="glass-card">
+            <!-- Página 2: Carreira -->
+            <a href="carreira.html" class="nav-card">
                 <div>
-                    <div class="card-tag">02 • Trajetória</div>
-                    <h3>Equipes & Carros</h3>
-                    <p>Da estreia histórica na McLaren ao domínio absoluto na Mercedes e o capítulo lendário na Ferrari.</p>
+                    <div class="card-num">PÁGINA 02</div>
+                    <h2>Carreira</h2>
+                    <p>Do kart até a Fórmula 1: a estreia na McLaren, a era de ouro na Mercedes-AMG e o capítulo na Scuderia Ferrari.</p>
                 </div>
-                <span class="card-arrow">Ver Garagem →</span>
+                <span class="card-btn">Acessar Carreira →</span>
             </a>
 
-            <a href="recordes.html" class="glass-card">
+            <!-- Página 3: Recordes -->
+            <a href="recordes.html" class="nav-card">
                 <div>
-                    <div class="card-tag">03 • Estatísticas</div>
-                    <h3>Títulos & Recordes</h3>
-                    <p>Os números que mudaram a F1, corridas inesquecíveis como Interlagos e Silverstone, e seus capacetes.</p>
+                    <div class="card-num">PÁGINA 03</div>
+                    <h2>Recordes</h2>
+                    <p>Os 7 títulos mundiais, mais de 105 vitórias, 104 pole positions e as corridas mais lendárias da sua vida.</p>
                 </div>
-                <span class="card-arrow">Ver Recordes →</span>
+                <span class="card-btn">Acessar Recordes →</span>
+            </a>
+
+            <!-- Página 4: Curiosidades -->
+            <a href="curiosidades.html" class="nav-card">
+                <div>
+                    <div class="card-num">PÁGINA 04</div>
+                    <h2>Curiosidades</h2>
+                    <p>Por que o número 44? A relação de amor com o Brasil e Ayrton Senna, projetos no cinema (filme F1) e dieta vegana.</p>
+                </div>
+                <span class="card-btn">Acessar Curiosidades →</span>
             </a>
         </div>
     </section>
 
-    <!-- Rodapé -->
     <footer>
-        <p>© 2026 Projeto Lewis Hamilton #44 • Desenvolvido por Ray</p>
-        <div class="social-links">
-            <a href="https://www.instagram.com/lewishamilton/" target="_blank">Instagram</a>
-            <a href="https://twitter.com/LewisHamilton" target="_blank">X / Twitter</a>
-            <a href="https://www.youtube.com/@lewishamilton" target="_blank">YouTube</a>
-        </div>
+        <p>Projeto Desenvolvido por Ray • Sir Lewis Hamilton #44</p>
     </footer>
+
+    <!-- Script que muda as cores da equipe e salva a escolha do usuário -->
+    <script>
+        function mudarTema(equipe, botaoClicado) {
+            document.documentElement.setAttribute('data-theme', equipe);
+            localStorage.setItem('temaHamilton', equipe);
+
+            // Atualiza qual botão fica destacado
+            document.querySelectorAll('.team-btn').forEach(btn => btn.classList.remove('active'));
+            if (botaoClicado) {
+                botaoClicado.classList.add('active');
+            }
+        }
+
+        // Mantém a cor escolhida quando a página carrega
+        window.onload = function() {
+            const temaSalvo = localStorage.getItem('temaHamilton') || 'ferrari';
+            document.documentElement.setAttribute('data-theme', temaSalvo);
+            
+            document.querySelectorAll('.team-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.getAttribute('onclick').includes(temaSalvo)) {
+                    btn.classList.add('active');
+                }
+            });
+        };
+    </script>
 
 </body>
 </html>
