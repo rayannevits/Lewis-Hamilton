@@ -298,71 +298,78 @@ footer {
     .topbar { flex-direction: column; gap: 15px; }
 }
 
-/* =========================================
-   EFEITO CARRO DE F1 PASSANDO (SPEED WIPE)
-   ========================================= */
-.photo-frame {
-    overflow: hidden; /* Garante que o feixe passe só dentro do quadro */
+
+/* =================================================
+   TRANSIÇÃO TELA INTEIRA: CARRO DE F1 PASSANDO
+   ================================================= */
+.f1-screen-wipe {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none; /* Não bloqueia os cliques na página */
+    z-index: 9999;
+    overflow: hidden;
 }
 
-/* Feixe aerodinâmico na cor da equipe que rasga a foto */
-.photo-frame::after {
-    content: '';
+.f1-racer-group {
     position: absolute;
-    top: 0;
-    left: -160%;
-    width: 130%;
-    height: 100%;
+    top: 50%;
+    left: -150vw;
+    width: 140vw;
+    height: 100vh;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+/* Rastro de luz e vento que cobre a tela inteira atrás do carro */
+.f1-trail {
+    position: absolute;
+    right: 120px;
+    width: 130vw;
+    height: 120vh;
     background: linear-gradient(
         90deg,
-        transparent,
-        var(--primary),
-        #ffffff,
-        var(--secondary),
-        transparent
+        transparent 0%,
+        var(--glow) 35%,
+        var(--primary) 82%,
+        var(--secondary) 96%,
+        #ffffff 100%
     );
-    transform: skewX(-25deg); /* Inclinação de velocidade */
-    pointer-events: none;
-    z-index: 5;
+    transform: skewX(-25deg);
+    box-shadow: 0 0 80px var(--primary);
+    opacity: 0.95;
 }
 
-.photo-frame.f1-pass::after {
-    animation: f1-flash 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+/* Silhueta do Carro de F1 na ponta do rastro */
+.f1-car-svg {
+    position: relative;
+    z-index: 2;
+    width: 340px;
+    height: auto;
+    fill: #ffffff;
+    filter: drop-shadow(-15px 0 20px var(--primary)) drop-shadow(0 0 10px #fff);
 }
 
-@keyframes f1-flash {
-    0% { left: -160%; }
-    100% { left: 160%; }
+/* Disparo da animação em velocidade de reta */
+.f1-screen-wipe.running .f1-racer-group {
+    animation: f1-full-pass 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
-/* Animações da foto saindo e entrando com Motion Blur */
+@keyframes f1-full-pass {
+    0% { left: -150vw; }
+    100% { left: 150vw; }
+}
+
+/* Leve vibração na foto quando o carro passa */
 #foto-hamilton {
-    transition: transform 0.22s cubic-bezier(0.4, 0, 1, 1), filter 0.22s ease, opacity 0.2s ease;
+    transition: transform 0.25s ease, filter 0.25s ease;
 }
 
-.foto-saindo {
-    transform: translateX(90px) scale(0.95) skewX(-12deg) !important;
-    filter: blur(8px) brightness(1.4);
-    opacity: 0;
-}
-
-.foto-entrando {
-    animation: entrada-vacuo 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-
-@keyframes entrada-vacuo {
-    0% {
-        transform: translateX(-90px) scale(1.05) skewX(12deg);
-        filter: blur(8px) brightness(1.4);
-        opacity: 0;
-    }
-    100% {
-        transform: translateX(0) scale(1) skewX(0deg);
-        filter: blur(0);
-        opacity: 1;
-    }
-}
-
-.number-badge {
-    z-index: 10; /* Mantém o número 44/1 sempre visível por cima */
+.shake-speed {
+    transform: scale(0.96) skewX(-4deg);
+    filter: blur(4px) brightness(1.3);
 }

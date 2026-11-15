@@ -97,65 +97,74 @@
         <p>Projeto Desenvolvido por Ray • Sir Lewis Hamilton #44</p>
     </footer>
 
-<!-- Script que faz a transição estilo Carro de F1 e muda as cores -->
+<!-- Camada de Transição Tela Inteira (Carro de F1 + Rastro) -->
+    <div id="f1-transition" class="f1-screen-wipe">
+        <div class="f1-racer-group">
+            <div class="f1-trail"></div>
+            <!-- Silhueta Vetorial de um Carro de F1 Moderno -->
+            <svg class="f1-car-svg" viewBox="0 0 500 130" xmlns="http://www.w3.org/2000/svg">
+                <!-- Asa Traseira e Aerofólio -->
+                <path d="M15,25 L55,25 L65,75 L25,75 Z" />
+                <!-- Corpo Principal, Halo e Bico Aerodinâmico -->
+                <path d="M50,75 L110,70 L155,42 L225,42 L255,60 L330,63 L455,78 L485,85 L485,92 L45,92 Z" />
+                <path d="M220,44 L275,44 L305,62 L285,62 L265,49 L225,49 Z" fill="var(--primary)"/>
+                <!-- Pneu Traseiro e Pneu Dianteiro -->
+                <circle cx="95" cy="88" r="32" fill="#0b0b0e" stroke="#ffffff" stroke-width="6"/>
+                <circle cx="95" cy="88" r="14" fill="var(--primary)"/>
+                <circle cx="395" cy="88" r="30" fill="#0b0b0e" stroke="#ffffff" stroke-width="6"/>
+                <circle cx="395" cy="88" r="13" fill="var(--primary)"/>
+                <!-- Asa Dianteira -->
+                <path d="M435,82 L495,82 L490,96 L430,96 Z" fill="var(--secondary)"/>
+            </svg>
+        </div>
+    </div>
+
     <script>
         const dadosEquipes = {
-            mclaren: {
-                foto: 'assets/mclaren.jpg',
-                numero: '1'
-            },
-            mercedes: {
-                foto: 'assets/mercedes.jpg',
-                numero: '44'
-            },
-            ferrari: {
-                foto: 'assets/ferrari.jpg',
-                numero: '44'
-            }
+            mclaren: { foto: 'assets/mclaren.jpg', numero: '1' },
+            mercedes: { foto: 'assets/mercedes.jpg', numero: '44' },
+            ferrari: { foto: 'assets/ferrari.jpg', numero: '44' }
         };
 
         function mudarTema(equipe, botaoClicado, animar = true) {
-            // 1. Muda as cores do site
-            document.documentElement.setAttribute('data-theme', equipe);
-            localStorage.setItem('temaHamilton', equipe);
-
+            const wipeLayer = document.getElementById('f1-transition');
             const imgElement = document.getElementById('foto-hamilton');
             const badgeElement = document.getElementById('badge-numero');
-            const frameElement = document.querySelector('.photo-frame');
 
-            if (imgElement && dadosEquipes[equipe]) {
-                if (animar) {
-                    // Dispara o feixe de velocidade da equipe
-                    frameElement.classList.remove('f1-pass');
-                    void frameElement.offsetWidth; // Reinicia a animação
-                    frameElement.classList.add('f1-pass');
+            // Atualiza o botão ativo no topo
+            document.querySelectorAll('.team-btn').forEach(btn => btn.classList.remove('active'));
+            if (botaoClicado) botaoClicado.classList.add('active');
 
-                    // Tira a foto antiga em alta velocidade
-                    imgElement.classList.remove('foto-entrando');
-                    imgElement.classList.add('foto-saindo');
+            if (animar && wipeLayer) {
+                // 1. Dispara o carro de F1 atravessando a página inteira
+                wipeLayer.classList.remove('running');
+                void wipeLayer.offsetWidth; // Reinicia a animação
+                wipeLayer.classList.add('running');
 
-                    // Entra a foto nova no vácuo do feixe
-                    setTimeout(() => {
+                if (imgElement) imgElement.classList.add('shake-speed');
+
+                // 2. Exatamente quando o carro cruza o meio da tela (240ms), vira as cores e a foto!
+                setTimeout(() => {
+                    document.documentElement.setAttribute('data-theme', equipe);
+                    localStorage.setItem('temaHamilton', equipe);
+
+                    if (imgElement && dadosEquipes[equipe]) {
                         imgElement.src = dadosEquipes[equipe].foto;
                         badgeElement.textContent = dadosEquipes[equipe].numero;
-                        imgElement.classList.remove('foto-saindo');
-                        imgElement.classList.add('foto-entrando');
-                    }, 180);
-                } else {
-                    // Carregamento inicial sem piscar
+                        imgElement.classList.remove('shake-speed');
+                    }
+                }, 240);
+            } else {
+                // Carregamento inicial imediato
+                document.documentElement.setAttribute('data-theme', equipe);
+                localStorage.setItem('temaHamilton', equipe);
+                if (imgElement && dadosEquipes[equipe]) {
                     imgElement.src = dadosEquipes[equipe].foto;
                     badgeElement.textContent = dadosEquipes[equipe].numero;
                 }
             }
-
-            // Atualiza o botão ativo no topo
-            document.querySelectorAll('.team-btn').forEach(btn => btn.classList.remove('active'));
-            if (botaoClicado) {
-                botaoClicado.classList.add('active');
-            }
         }
 
-        // Carrega a equipe salva assim que abre a página
         window.onload = function() {
             const temaSalvo = localStorage.getItem('temaHamilton') || 'ferrari';
             const botaoCorrespondente = document.querySelector(`.team-btn[onclick*="${temaSalvo}"]`);
