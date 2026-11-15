@@ -8,12 +8,12 @@
 </head>
 <body>
 
-    <!-- Topo com Seletor de Cores das Equipes -->
+    <!-- Topo com Seletor de Cores e Fotos das Equipes -->
     <header class="topbar">
-        <a href="index.html" class="logo">HAMILTON <span>#44</span></a>
+        <a href="index.html" class="logo">HAMILTON <span id="logo-num">#44</span></a>
 
         <div class="theme-switcher">
-            <span class="theme-label">Escolha a cor da equipe:</span>
+            <span class="theme-label">Escolha a era / equipe:</span>
             
             <button class="team-btn" onclick="mudarTema('mclaren', this)">
                 <span class="dot" style="background: #ff8000;"></span> McLaren
@@ -29,24 +29,23 @@
         </div>
     </header>
 
-    <!-- Apresentação: Foto + De onde ele é + Para que serve a página -->
+    <!-- Apresentação: Foto Dinâmica + De onde ele é + Para que serve a página -->
     <section class="hero-home">
         <div class="photo-frame">
-            <!-- Você pode trocar por uma foto salva na sua pasta, ex: src="assets/hamilton.jpg" -->
-            <img src="https://upload.wikimedia.org/wikipedia/commons/1/18/Lewis_Hamilton_2016_Malaysia_2.jpg" alt="Sir Lewis Hamilton">
-            <div class="number-badge">44</div>
+            <img id="foto-hamilton" src="assets/ferrari.jpg" alt="Sir Lewis Hamilton" style="transition: opacity 0.25s ease;">
+            <div id="badge-numero" class="number-badge">44</div>
         </div>
 
         <div class="intro-content">
             <span class="origin-tag">📍 STEVENAGE, REINO UNIDO • CIDADÃO HONORÁRIO DO BRASIL</span>
-            <h1>SIR LEWIS <span>HAMILTON</span></h1>
+            <h1>SIR LEWIS <span id="era-titulo">HAMILTON</span></h1>
 
             <div class="intro-box">
                 <p><strong>Quem é:</strong> Nascido em Stevenage, na Inglaterra, em 7 de janeiro de 1985, Sir Lewis Carl Davidson Hamilton é heptacampeão mundial de Fórmula 1 e o piloto mais vitorioso da história do automobilismo, além de possuir o título de Cavaleiro da Coroa Britânica e de Cidadão Honorário Brasileiro.</p>
             </div>
 
             <div class="intro-box">
-                <p><strong>Para que serve esta página:</strong> Este portal interativo foi criado para reunir em um só lugar toda a trajetória do #44 dentro e fora das pistas. Aqui você pode personalizar o visual com as cores das três equipes históricas em que ele correu (McLaren, Mercedes e Ferrari) e explorar sua vida pessoal, carreira, estatísticas e bastidores.</p>
+                <p><strong>Para que serve esta página:</strong> Este portal interativo foi criado para reunir em um só lugar toda a trajetória do #44 dentro e fora das pistas. Escolha uma equipe no topo para mudar as cores e a foto da época (McLaren, Mercedes ou Ferrari) e explore todas as seções abaixo.</p>
             </div>
         </div>
     </section>
@@ -56,7 +55,6 @@
         <div class="portal-title">Explore tudo sobre o piloto</div>
 
         <div class="nav-grid">
-            <!-- Página 1: Biografia Pessoal -->
             <a href="biografia.html" class="nav-card">
                 <div>
                     <div class="card-num">PÁGINA 01</div>
@@ -66,7 +64,6 @@
                 <span class="card-btn">Acessar Biografia →</span>
             </a>
 
-            <!-- Página 2: Carreira -->
             <a href="carreira.html" class="nav-card">
                 <div>
                     <div class="card-num">PÁGINA 02</div>
@@ -76,7 +73,6 @@
                 <span class="card-btn">Acessar Carreira →</span>
             </a>
 
-            <!-- Página 3: Recordes -->
             <a href="recordes.html" class="nav-card">
                 <div>
                     <div class="card-num">PÁGINA 03</div>
@@ -86,12 +82,11 @@
                 <span class="card-btn">Acessar Recordes →</span>
             </a>
 
-            <!-- Página 4: Curiosidades -->
             <a href="curiosidades.html" class="nav-card">
                 <div>
                     <div class="card-num">PÁGINA 04</div>
                     <h2>Curiosidades</h2>
-                    <p>Por que o número 44? A relação de amor com o Brasil e Ayrton Senna, projetos no cinema (filme F1) e dieta vegana.</p>
+                    <p>Por que o número 44? A relação de amor com o Brasil e Ayrton Senna, projetos no cinema e estilo de vida.</p>
                 </div>
                 <span class="card-btn">Acessar Curiosidades →</span>
             </a>
@@ -102,30 +97,53 @@
         <p>Projeto Desenvolvido por Ray • Sir Lewis Hamilton #44</p>
     </footer>
 
-    <!-- Script que muda as cores da equipe e salva a escolha do usuário -->
+    <!-- Script que muda as cores, a foto e salva a escolha -->
     <script>
+        const dadosEquipes = {
+            mclaren: {
+                foto: 'assets/mclaren.jpg',
+                numero: '1'
+            },
+            mercedes: {
+                foto: 'assets/mercedes.jpg',
+                numero: '44'
+            },
+            ferrari: {
+                foto: 'assets/ferrari.jpg',
+                numero: '44'
+            }
+        };
+
         function mudarTema(equipe, botaoClicado) {
+            // 1. Muda as cores do site
             document.documentElement.setAttribute('data-theme', equipe);
             localStorage.setItem('temaHamilton', equipe);
 
-            // Atualiza qual botão fica destacado
+            // 2. Troca a foto e o número com efeito suave
+            const imgElement = document.getElementById('foto-hamilton');
+            const badgeElement = document.getElementById('badge-numero');
+            
+            if (imgElement && dadosEquipes[equipe]) {
+                imgElement.style.opacity = 0;
+                setTimeout(() => {
+                    imgElement.src = dadosEquipes[equipe].foto;
+                    badgeElement.textContent = dadosEquipes[equipe].numero;
+                    imgElement.style.opacity = 1;
+                }, 180);
+            }
+
+            // 3. Atualiza o botão ativo no topo
             document.querySelectorAll('.team-btn').forEach(btn => btn.classList.remove('active'));
             if (botaoClicado) {
                 botaoClicado.classList.add('active');
             }
         }
 
-        // Mantém a cor escolhida quando a página carrega
+        // Carrega a equipe e a foto salvas quando abre a página
         window.onload = function() {
             const temaSalvo = localStorage.getItem('temaHamilton') || 'ferrari';
-            document.documentElement.setAttribute('data-theme', temaSalvo);
-            
-            document.querySelectorAll('.team-btn').forEach(btn => {
-                btn.classList.remove('active');
-                if (btn.getAttribute('onclick').includes(temaSalvo)) {
-                    btn.classList.add('active');
-                }
-            });
+            const botaoCorrespondente = document.querySelector(`.team-btn[onclick*="${temaSalvo}"]`);
+            mudarTema(temaSalvo, botaoCorrespondente);
         };
     </script>
 
