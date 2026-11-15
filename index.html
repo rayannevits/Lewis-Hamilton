@@ -97,7 +97,7 @@
         <p>Projeto Desenvolvido por Ray • Sir Lewis Hamilton #44</p>
     </footer>
 
-    <!-- Script que muda as cores, a foto e salva a escolha -->
+<!-- Script que faz a transição estilo Carro de F1 e muda as cores -->
     <script>
         const dadosEquipes = {
             mclaren: {
@@ -114,36 +114,52 @@
             }
         };
 
-        function mudarTema(equipe, botaoClicado) {
+        function mudarTema(equipe, botaoClicado, animar = true) {
             // 1. Muda as cores do site
             document.documentElement.setAttribute('data-theme', equipe);
             localStorage.setItem('temaHamilton', equipe);
 
-            // 2. Troca a foto e o número com efeito suave
             const imgElement = document.getElementById('foto-hamilton');
             const badgeElement = document.getElementById('badge-numero');
-            
+            const frameElement = document.querySelector('.photo-frame');
+
             if (imgElement && dadosEquipes[equipe]) {
-                imgElement.style.opacity = 0;
-                setTimeout(() => {
+                if (animar) {
+                    // Dispara o feixe de velocidade da equipe
+                    frameElement.classList.remove('f1-pass');
+                    void frameElement.offsetWidth; // Reinicia a animação
+                    frameElement.classList.add('f1-pass');
+
+                    // Tira a foto antiga em alta velocidade
+                    imgElement.classList.remove('foto-entrando');
+                    imgElement.classList.add('foto-saindo');
+
+                    // Entra a foto nova no vácuo do feixe
+                    setTimeout(() => {
+                        imgElement.src = dadosEquipes[equipe].foto;
+                        badgeElement.textContent = dadosEquipes[equipe].numero;
+                        imgElement.classList.remove('foto-saindo');
+                        imgElement.classList.add('foto-entrando');
+                    }, 180);
+                } else {
+                    // Carregamento inicial sem piscar
                     imgElement.src = dadosEquipes[equipe].foto;
                     badgeElement.textContent = dadosEquipes[equipe].numero;
-                    imgElement.style.opacity = 1;
-                }, 180);
+                }
             }
 
-            // 3. Atualiza o botão ativo no topo
+            // Atualiza o botão ativo no topo
             document.querySelectorAll('.team-btn').forEach(btn => btn.classList.remove('active'));
             if (botaoClicado) {
                 botaoClicado.classList.add('active');
             }
         }
 
-        // Carrega a equipe e a foto salvas quando abre a página
+        // Carrega a equipe salva assim que abre a página
         window.onload = function() {
             const temaSalvo = localStorage.getItem('temaHamilton') || 'ferrari';
             const botaoCorrespondente = document.querySelector(`.team-btn[onclick*="${temaSalvo}"]`);
-            mudarTema(temaSalvo, botaoCorrespondente);
+            mudarTema(temaSalvo, botaoCorrespondente, false);
         };
     </script>
 

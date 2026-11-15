@@ -297,3 +297,72 @@ footer {
     .photo-frame { max-width: 340px; margin: 0 auto; }
     .topbar { flex-direction: column; gap: 15px; }
 }
+
+/* =========================================
+   EFEITO CARRO DE F1 PASSANDO (SPEED WIPE)
+   ========================================= */
+.photo-frame {
+    overflow: hidden; /* Garante que o feixe passe só dentro do quadro */
+}
+
+/* Feixe aerodinâmico na cor da equipe que rasga a foto */
+.photo-frame::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -160%;
+    width: 130%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        var(--primary),
+        #ffffff,
+        var(--secondary),
+        transparent
+    );
+    transform: skewX(-25deg); /* Inclinação de velocidade */
+    pointer-events: none;
+    z-index: 5;
+}
+
+.photo-frame.f1-pass::after {
+    animation: f1-flash 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes f1-flash {
+    0% { left: -160%; }
+    100% { left: 160%; }
+}
+
+/* Animações da foto saindo e entrando com Motion Blur */
+#foto-hamilton {
+    transition: transform 0.22s cubic-bezier(0.4, 0, 1, 1), filter 0.22s ease, opacity 0.2s ease;
+}
+
+.foto-saindo {
+    transform: translateX(90px) scale(0.95) skewX(-12deg) !important;
+    filter: blur(8px) brightness(1.4);
+    opacity: 0;
+}
+
+.foto-entrando {
+    animation: entrada-vacuo 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes entrada-vacuo {
+    0% {
+        transform: translateX(-90px) scale(1.05) skewX(12deg);
+        filter: blur(8px) brightness(1.4);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0) scale(1) skewX(0deg);
+        filter: blur(0);
+        opacity: 1;
+    }
+}
+
+.number-badge {
+    z-index: 10; /* Mantém o número 44/1 sempre visível por cima */
+}
