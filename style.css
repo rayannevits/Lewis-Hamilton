@@ -1,13 +1,11 @@
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800;900&family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,600;0,700;1,700&family=Inter:wght@300;400;600;800&display=swap');
 
 :root {
-    --bg-dark: #070709;
-    --bg-card: rgba(255, 255, 255, 0.03);
-    --border-glass: rgba(255, 255, 255, 0.08);
-    --red-f1: #e10600;
-    --neon-lh: #ccff00;
-    --text-main: #f5f5f7;
-    --text-muted: #9a9aa6;
+    --red: #ff1801;
+    --neon: #dfff00;
+    --dark: #0a0a0c;
+    --panel: #121216;
+    --line: rgba(255, 255, 255, 0.1);
 }
 
 * {
@@ -17,274 +15,230 @@
 }
 
 body {
-    background-color: var(--bg-dark);
-    background-image: 
-        radial-gradient(circle at 15% 15%, rgba(225, 6, 0, 0.15), transparent 40%),
-        radial-gradient(circle at 85% 80%, rgba(138, 43, 226, 0.12), transparent 40%);
-    background-attachment: fixed;
-    color: var(--text-main);
-    font-family: 'Plus Jakarta Sans', sans-serif;
+    background-color: var(--dark);
+    color: #ffffff;
+    font-family: 'Inter', sans-serif;
+    display: flex;
     min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* BARRA LATERAL ESQUERDA (ESTILO TELEMETRIA F1) */
+.sidebar {
+    width: 90px;
+    background: #050507;
+    border-right: 1px solid var(--line);
     display: flex;
     flex-direction: column;
-}
-
-/* Navbar Moderna com Efeito Vidro (Glassmorphism) */
-.navbar {
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 18px 8%;
-    background: rgba(7, 7, 9, 0.75);
-    backdrop-filter: blur(16px);
-    border-bottom: 1px solid var(--border-glass);
+    padding: 30px 0;
+    position: fixed;
+    height: 100vh;
+    z-index: 100;
 }
 
-.logo {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 1.6rem;
-    font-weight: 900;
-    letter-spacing: 3px;
-    color: #fff;
-    text-decoration: none;
-}
-
-.logo span {
-    color: var(--red-f1);
-}
-
-.nav-links {
-    display: flex;
-    gap: 32px;
-}
-
-.nav-links a {
-    color: var(--text-muted);
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 0.95rem;
-    letter-spacing: 0.5px;
-    transition: 0.3s;
-    position: relative;
-}
-
-.nav-links a:hover, .nav-links a.active {
-    color: #fff;
-}
-
-.nav-links a::after {
-    content: '';
-    position: absolute;
-    width: 0%;
-    height: 2px;
-    bottom: -6px;
-    left: 0;
-    background-color: var(--red-f1);
-    transition: 0.3s ease;
-}
-
-.nav-links a:hover::after, .nav-links a.active::after {
-    width: 100%;
-}
-
-/* Seção Principal (Hero Assimétrico) */
-.hero {
-    max-width: 1250px;
-    margin: 50px auto;
-    padding: 0 5%;
-    display: grid;
-    grid-template-columns: 1.2fr 0.8fr;
-    gap: 50px;
-    align-items: center;
-}
-
-.badge {
-    display: inline-block;
-    padding: 6px 16px;
-    border-radius: 30px;
-    background: rgba(225, 6, 0, 0.15);
-    border: 1px solid rgba(225, 6, 0, 0.4);
-    color: #ff4d4d;
-    font-size: 0.8rem;
+.brand {
+    font-family: 'Chakra Petch', sans-serif;
+    font-size: 1.8rem;
     font-weight: 700;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    margin-bottom: 20px;
+    font-style: italic;
+    color: var(--red);
+    text-decoration: none;
+    letter-spacing: -1px;
 }
 
-.hero-text h1 {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 3.8rem;
-    line-height: 1.05;
-    font-weight: 900;
-    margin-bottom: 20px;
-    background: linear-gradient(90deg, #ffffff, #a5a5b5);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-.hero-text p {
-    color: var(--text-muted);
-    font-size: 1.1rem;
-    line-height: 1.7;
-    margin-bottom: 35px;
-}
-
-/* Mini Estatísticas na Home */
-.quick-stats {
+.side-nav {
     display: flex;
-    gap: 35px;
-    margin-bottom: 35px;
-    padding-top: 20px;
-    border-top: 1px solid var(--border-glass);
+    flex-direction: column;
+    gap: 45px;
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
 }
 
-.stat-item h3 {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 2.2rem;
-    color: var(--neon-lh);
-}
-
-.stat-item span {
+.side-nav a {
+    color: #666;
+    text-decoration: none;
+    font-family: 'Chakra Petch', sans-serif;
     font-size: 0.85rem;
-    color: var(--text-muted);
+    letter-spacing: 3px;
     text-transform: uppercase;
-    letter-spacing: 1px;
+    transition: 0.3s;
 }
 
-/* Foto Principal Estilizada */
-.hero-visual {
+.side-nav a:hover, .side-nav a.active {
+    color: var(--neon);
+}
+
+.race-number {
+    font-family: 'Chakra Petch', sans-serif;
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: #fff;
+    border: 1px solid var(--red);
+    padding: 6px 10px;
+}
+
+/* ÁREA DE CONTEÚDO PRINCIPAL */
+.main-wrapper {
+    margin-left: 90px;
+    width: calc(100% - 90px);
+}
+
+/* CAPA DE REVISTA (HERO EDITORIAL) */
+.hero-poster {
     position: relative;
+    min-height: 82vh;
     display: flex;
-    justify-content: center;
+    align-items: center;
+    padding: 60px 8%;
+    background: 
+        linear-gradient(90deg, #0a0a0c 35%, rgba(10, 10, 12, 0.3) 100%),
+        url('https://upload.wikimedia.org/wikipedia/commons/1/18/Lewis_Hamilton_2016_Malaysia_2.jpg') center/cover no-repeat;
+    border-bottom: 2px solid var(--red);
+    overflow: hidden;
 }
 
-.hero-visual img {
-    width: 100%;
-    max-width: 400px;
-    height: 460px;
-    object-fit: cover;
-    border-radius: 24px;
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.7);
-    transition: transform 0.4s ease;
-}
-
-.hero-visual img:hover {
-    transform: scale(1.02);
-}
-
-.number-bg {
+/* Número 44 Gigante Vazado no Fundo */
+.bg-outline {
     position: absolute;
-    bottom: -25px;
-    right: 10px;
-    font-family: 'Orbitron', sans-serif;
-    font-size: 6.5rem;
-    font-weight: 900;
-    color: rgba(255, 255, 255, 0.06);
+    right: -2%;
+    bottom: -10%;
+    font-family: 'Chakra Petch', sans-serif;
+    font-size: 26rem;
+    font-weight: 700;
+    font-style: italic;
+    color: transparent;
+    -webkit-text-stroke: 2px rgba(255, 255, 255, 0.08);
+    line-height: 0.8;
     pointer-events: none;
 }
 
-/* Grid de Cards Modernos (Bento Grid) */
-.section-container {
-    max-width: 1250px;
-    margin: 20px auto 60px auto;
-    padding: 0 5%;
-    width: 100%;
+.poster-content {
+    position: relative;
+    z-index: 2;
+    max-width: 750px;
 }
 
-.bento-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 24px;
+.telemetry-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'Chakra Petch', sans-serif;
+    color: var(--neon);
+    font-size: 0.9rem;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    margin-bottom: 15px;
 }
 
-.glass-card {
-    background: var(--bg-card);
-    backdrop-filter: blur(12px);
-    border: 1px solid var(--border-glass);
-    padding: 32px;
-    border-radius: 20px;
-    text-decoration: none;
-    color: var(--text-main);
-    transition: all 0.35s ease;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+.poster-content h1 {
+    font-family: 'Chakra Petch', sans-serif;
+    font-size: 5.5rem;
+    font-style: italic;
+    text-transform: uppercase;
+    line-height: 0.92;
+    margin-bottom: 25px;
 }
 
-.glass-card:hover {
-    transform: translateY(-8px);
-    border-color: rgba(225, 6, 0, 0.6);
-    box-shadow: 0 15px 35px rgba(225, 6, 0, 0.12);
-    background: rgba(255, 255, 255, 0.05);
+.poster-content h1 span {
+    display: block;
+    color: transparent;
+    -webkit-text-stroke: 2px var(--red);
 }
 
-.card-tag {
-    font-size: 0.75rem;
+.poster-content p {
+    font-size: 1.15rem;
+    color: #ccc;
+    max-width: 550px;
+    line-height: 1.7;
+    border-left: 3px solid var(--neon);
+    padding-left: 20px;
+}
+
+/* FAIXA VERMELHA DE TELEMETRIA EM MOVIMENTO */
+.ticker-bar {
+    background: var(--red);
+    color: #000;
+    font-family: 'Chakra Petch', sans-serif;
     font-weight: 700;
-    color: var(--red-f1);
+    font-size: 1rem;
+    letter-spacing: 3px;
+    padding: 12px 0;
+    text-transform: uppercase;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+/* SEÇÃO DE CAPÍTULOS (ESTILO PAINEL DE PISTA) */
+.chapters {
+    padding: 70px 8%;
+}
+
+.section-header {
+    font-family: 'Chakra Petch', sans-serif;
+    font-size: 0.9rem;
+    color: #777;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    margin-bottom: 30px;
+}
+
+.chapter-row {
+    display: grid;
+    grid-template-columns: 100px 1fr 200px;
+    align-items: center;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    padding: 35px 40px;
+    margin-bottom: 20px;
+    text-decoration: none;
+    color: #fff;
+    clip-path: polygon(0 0, 98% 0, 100% 25%, 100% 100%, 2% 100%, 0 75%);
+    transition: 0.35s ease;
+}
+
+.chapter-row:hover {
+    background: #1a1a22;
+    border-color: var(--red);
+    transform: translateX(15px);
+}
+
+.chap-num {
+    font-family: 'Chakra Petch', sans-serif;
+    font-size: 3rem;
+    font-weight: 700;
+    font-style: italic;
+    color: var(--red);
+}
+
+.chap-info h2 {
+    font-family: 'Chakra Petch', sans-serif;
+    font-size: 2rem;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+}
+
+.chap-info p {
+    color: #888;
+    font-size: 0.95rem;
+}
+
+.chap-action {
+    text-align: right;
+    font-family: 'Chakra Petch', sans-serif;
+    color: var(--neon);
+    font-weight: 700;
     letter-spacing: 2px;
     text-transform: uppercase;
-    margin-bottom: 12px;
 }
 
-.glass-card h3 {
-    font-family: 'Orbitron', sans-serif;
-    font-size: 1.4rem;
-    margin-bottom: 10px;
-}
-
-.glass-card p {
-    color: var(--text-muted);
-    font-size: 0.95rem;
-    line-height: 1.6;
-    margin-bottom: 20px;
-}
-
-.card-arrow {
-    font-weight: 700;
-    font-size: 0.9rem;
-    color: #fff;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-/* Rodapé minimalista */
-footer {
-    margin-top: auto;
-    padding: 30px 8%;
-    border-top: 1px solid var(--border-glass);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    color: var(--text-muted);
-    font-size: 0.9rem;
-}
-
-.social-links {
-    display: flex;
-    gap: 20px;
-}
-
-.social-links a {
-    color: var(--text-main);
-    text-decoration: none;
-    font-weight: 600;
-    transition: 0.3s;
-}
-
-.social-links a:hover {
-    color: var(--red-f1);
-}
-
-@media (max-width: 900px) {
-    .hero { grid-template-columns: 1fr; text-align: center; }
-    .quick-stats { justify-content: center; }
-    .hero-text h1 { font-size: 2.6rem; }
-    .navbar { flex-direction: column; gap: 15px; }
+@media (max-width: 850px) {
+    .sidebar { width: 100%; height: 65px; flex-direction: row; padding: 0 20px; bottom: 0; top: auto; border-top: 1px solid var(--line); }
+    .side-nav { writing-mode: horizontal-tb; transform: none; flex-direction: row; gap: 15px; }
+    .main-wrapper { margin-left: 0; width: 100%; margin-bottom: 65px; }
+    .poster-content h1 { font-size: 3.4rem; }
+    .chapter-row { grid-template-columns: 1fr; gap: 15px; }
+    .chap-action { text-align: left; }
 }
