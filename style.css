@@ -356,7 +356,7 @@ footer {
 
 /* Disparo da animação em velocidade de reta */
 .f1-screen-wipe.running .f1-racer-group {
-    animation: f1-full-pass 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    animation: f1-full-pass 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
 @keyframes f1-full-pass {
